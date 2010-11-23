@@ -2,6 +2,7 @@
 "Error";"Erro"
 "Success";"Realizado com sucesso"
 
+#Zend_Validate
 "Invalid type given, value should be float, string, or integer";"O tipo especificado é inválido, o valor deve ser float, string, ou inteiro"
 "'%value%' contains characters which are non alphabetic and no digits";"'%value%' contém caracteres que não são alfabéticos e nem dígitos"
 "'%value%' is an empty string";"'%value%' é uma string vazia"
