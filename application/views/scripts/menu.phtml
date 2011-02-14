@@ -7,6 +7,7 @@ $i = 0;
 $previousParentName = null;
 ?>
 <div id="menu" class="ui-accordion ui-widget ui-helper-reset">
+    <?php echo $this->widget('menu_classroom_top');?>
     <?php foreach ($menu as $parentName => $childs): ?>
             <?php foreach($childs as $name => $data): ?>
                 <?php if ($this->isAllowed($data)): ?>
@@ -30,6 +31,7 @@ $previousParentName = null;
     <?php endforeach; ?>
         </ul>
     </div>
+    <?php echo $this->widget('menu_classroom_bottom');?>
 </div>
 <script type="text/javascript" charset="utf-8">
     var startAnchor = 0;

@@ -30,7 +30,7 @@ class CourseController extends Tri_Controller_Action
         parent::init();
         $this->view->title = "Course";
     }
-	
+
     public function viewAction()
     {
         $id = Zend_Filter::filterStatic($this->_getParam('id'), 'int');
@@ -46,5 +46,29 @@ class CourseController extends Tri_Controller_Action
             $this->view->classroom = $classroom->fetchAll($where, 'begin');
 			$this->view->selectionProcess = SelectionProcess_Model_SelectionProcess::getAvailableProcessByCourse($id);
         }
+    }
+
+    public function widgetAction()
+    {
+        $course   = new Tri_Db_Table('course');
+        $page     = Zend_Filter::filterStatic($this->_getParam('page'), 'int');
+        $form     = new Application_Form_Login();
+        $select   = $course->select()
+                           ->where('status = ?', 'active')
+                           ->order(array('name', 'category'));
+
+        $paginator = new Tri_Paginator($select, $page);
+        $this->view->data = $paginator->getResult();
+    }
+
+    public function dashboardAction()
+    {
+        $identity  = Zend_Auth::getInstance()->getIdentity();
+        $courses   = Application_Model_Classroom::getAllByUser($identity->id);
+        $finalized = Application_Model_Classroom::getFinalizedByUser($identity->id);
+
+        $this->view->data      = $courses;
+        $this->view->finalized = $finalized;
+        $this->view->user      = $identity;
     }
 }

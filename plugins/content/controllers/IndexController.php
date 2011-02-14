@@ -47,4 +47,20 @@ class Content_IndexController extends Tri_Controller_Action
             $this->view->restriction = $this->view->translate($restriction['content']) . " " . $restriction['value'];
         }
     }
+
+    public function widgetAction()
+    {
+        $session = new Zend_Session_Namespace('data');
+        $data = Application_Model_Content::fetchAllOrganize($session->course_id);
+
+        if (!$data) {
+            Application_Model_Content::createInitialContent($session->course_id);
+            $data = Application_Model_Content::fetchAllOrganize($session->course_id);
+        }
+
+        $this->view->current = Application_Model_Content::getLastAccess($session->classroom_id, $data);
+        $this->view->data = Zend_Json::encode($data);
+
+        $session->contents = $this->view->data;
+    }
 }

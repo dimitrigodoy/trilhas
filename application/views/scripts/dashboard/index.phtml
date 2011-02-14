@@ -1,4 +1,5 @@
 <div id="menu">
+    <?php echo $this->widget('menu_dashboard_top');?>
     <div class="box">
         <div class="ui-dialog ui-widget ui-widget-content ui-corner-all">
             <div class="ui-dialog-content ui-widget-content">
@@ -23,101 +24,11 @@
             </a>
         <?php endif;?>
     </div>
+    <?php echo $this->widget('menu_dashboard_bottom');?>
 </div>
 
 <div class="box">
     <div class="main">
-        <?php if(count($this->calendar)):?>
-            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all">
-                <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-                    <h3><?php echo $this->translate('calendar');?></h3>
-                </div>
-                <div class="calendar ui-dialog-content ui-widget-content">
-                    <?php $begin = null;?>
-                    <?php foreach($this->calendar as $calendar): ?>
-                        <?php if ($calendar->begin != $begin):?>
-                            <?php if ($begin != null):?>
-                                </ul></div>
-                            <?php endif;?>
-                            <div class="item">
-                                <div class="date">
-                                    <div><?php echo date('d', strtotime($calendar->begin))?></div>
-                                    <div><?php echo $this->translate(date('M', strtotime($calendar->begin)))?></div>
-                                </div>
-                                <ul>
-                        <?php endif;?>
-                        <li>
-                            <?php echo $calendar->description?>
-                            <?php $begin = $calendar->begin;?>
-                        </li>
-                    <?php endforeach;?>
-                            </ul></div>
-                    <div class="clear">
-                        <a href="calendar"><?php echo $this->translate('View all');?></a>
-                    </div>
-                </div>
-            </div>
-        <?php endif; ?>
-        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all">
-            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-                <h3><?php echo $this->translate('course'); ?></h3>
-            </div>
-            <div class="courses ui-dialog-content ui-widget-content">
-                <?php if (count($this->courses)) :?>
-                    <?php foreach ($this->courses as $course): ?>
-                        <div class="item">
-                            <img alt="<?php echo $course['name'] ?>" src="upload/<?php echo $this->thumbnail($course['image'], 'small') ?>" width="40" height="40" />
-                            <a href="classroom/view/id/<?php echo $course['classroom_id'] ?>"><?php echo $course['name'] ?></a>
-                            <span>(<?php echo $course['classroom_name'] ?>)</span>
-                            <p class="light"><?php echo substr($course['description'], 0, strpos($course['description'], '.')) ?></p>
-                        </div>
-                    <?php endforeach; ?>
-                    <p class="clear">
-                <?php else: ?>
-                    <p>
-                       <?php echo $this->translate('You are not registred in a classroom. See'); ?>
-                <?php endif;?>
-                       <a href="index"><?php echo $this->translate('List of available courses')?></a>
-                    </p>
-                <?php if (count($this->finalized)) :?>
-                    <h3><?php echo $this->translate('Finalized')?></h3>
-                    <?php foreach ($this->finalized as $finalized): ?>
-                        <div class="item">
-                            <img alt="<?php echo $finalized['name'] ?>" src="upload/<?php echo $this->thumbnail($finalized['image'], 'small') ?>" width="40" height="40" />
-                            <?php echo $finalized['name'] ?>
-                            <span><?php echo $this->translate($finalized['category']) ?></span>
-                            <p>
-                                <a href="panel/certificate/validate/uniqueId/<?php echo $finalized['unique_id']?>">
-                                    <img class="certificate" src="img/certificate.png" />
-                                    <?php echo $this->translate('Certificate')?>
-                                </a>
-                            </p>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif;?>
-            </div>
-        </div>
-        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all">
-            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-                <h3><?php echo $this->translate('timeline'); ?></h3>
-            </div>
-            <div class="courses ui-dialog-content ui-widget-content">
-                <?php if (count($this->timeline)) :?>
-                    <?php foreach ($this->timeline as $timeline): ?>
-                        <div class="item">
-                            <img alt="<?php echo $timeline['name'] ?>" src="upload/<?php echo $this->thumbnail($timeline['image'], 'small') ?>" width="40" height="40" />
-                            <?php echo $timeline['name'] ?>
-                            <span><?php echo $this->date($timeline['created'])?></span>
-                            <p class="light"><?php echo $timeline['description']?>
-                            (<a href="classroom/view/id/<?php echo $timeline['classroom_id'] ?>"><?php echo $timeline['cname']?></a>)</p>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p>
-                       <?php echo $this->translate('there are no records'); ?>
-                    </p>
-                <?php endif;?>
-            </div>
-        </div>
+        <?php echo $this->widget('main_dashboard');?>
     </div>
 </div>

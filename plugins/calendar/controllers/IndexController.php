@@ -108,4 +108,23 @@ class Calendar_IndexController extends Tri_Controller_Action
         $this->_helper->_flashMessenger->addMessage('Success');
         $this->_redirect('calendar/index/');
     }
+
+    public function widgetAction()
+    {
+        $calendar = new Tri_Db_Table('calendar');
+
+        $where = array('classroom_id IS NULL', 'end IS NULL OR end > ?' => date('Y-m-d'));
+        $this->view->data = $calendar->fetchAll($where, 'begin', 10);
+    }
+
+    public function dashboardAction()
+    {
+        $identity  = Zend_Auth::getInstance()->getIdentity();
+        $calendar  = new Tri_Db_Table('calendar');
+        $courses   = Application_Model_Classroom::getAllByUser($identity->id);
+
+        $this->view->data = Calendar_Model_Calendar::getByClassroom($courses);
+
+        $this->render('widget');
+    }
 }

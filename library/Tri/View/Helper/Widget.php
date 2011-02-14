@@ -18,35 +18,29 @@
  */
 
 /**
- * @category   Application
- * @package    Application_Controller
+ * @category   Tri
+ * @package    Tri_View
  * @copyright  Copyright (C) 2005-2010  Preceptor Educação a Distância Ltda. <http://www.preceptoead.com.br>
  * @license    http://www.gnu.org/licenses/  GNU GPL
  */
-class DashboardController extends Tri_Controller_Action
+class Tri_View_Helper_Widget extends Zend_View_Helper_Abstract
 {
-    public function indexAction()
+    public function widget($position)
     {
-        $identity  = Zend_Auth::getInstance()->getIdentity();
-        $this->view->user = $identity;
-        
-        $this->_helper->layout->setLayout('layout');
-    }
-	
-    public function moreAction()
-    {
-        $page = Zend_Filter::filterStatic($this->_getParam('page'), 'int');
-        $identity = Zend_Auth::getInstance()->getIdentity();
-        $courses  = Application_Model_Classroom::getAllByUser($identity->id);
+        $xhtml = '';
 
-        $this->view->timeline = Application_Model_Timeline::getByClassroom($courses, $page);
-    }
+        $table = new Tri_Db_Table('widget');
+        $widgets = $table->fetchAll(array('position = ?' => $position,
+                                          'status = ?' => 'active'), 'order');
 
-    public function timelineAction()
-    {
-        $identity  = Zend_Auth::getInstance()->getIdentity();
-        $courses   = Application_Model_Classroom::getAllByUser($identity->id);
+        if (count($widgets)) {
+            foreach($widgets as $widget) {
+                $xhtml .= $this->view->action($widget->action,
+                                              $widget->controller,
+                                              $widget->module);
+            }
+        }
 
-        $this->view->timeline = Application_Model_Timeline::getByClassroom($courses, 1);
+        return $xhtml;
     }
 }

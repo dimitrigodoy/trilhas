@@ -1,4 +1,5 @@
 <div class="menu login">
+    <?php echo $this->widget('menu_index_top');?>
     <div class="ui-dialog ui-widget ui-widget-content ui-corner-all">
         <div class="ui-dialog-content ui-widget-content">
             <?php if (Zend_Auth::getInstance()->hasIdentity()): ?>
@@ -17,60 +18,11 @@
             <?php endif;?>
         </div>
     </div>
+    <?php echo $this->widget('menu_index_bottom');?>
 </div>
 
 <div class="box">
     <div class="main">
-        <?php if(count($this->calendar)):?>
-            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all">
-                <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-                    <h3><?php echo $this->translate('Calendar');?></h3>
-                </div>
-                <div class="calendar ui-dialog-content ui-widget-content">
-                    <?php $begin = null;?>
-                    <?php foreach($this->calendar as $calendar): ?>
-                        <?php if ($calendar->begin != $begin):?>
-                            <?php if ($begin != null):?>
-                                </ul></div>
-                            <?php endif;?>
-                            <div class="item">
-                                <div class="date">
-                                    <div><?php echo date('d', strtotime($calendar->begin))?></div>
-                                    <div><?php echo $this->translate(date('M', strtotime($calendar->begin)))?></div>
-                                </div>
-                                <ul>
-                        <?php endif;?>
-                        <li>
-                            <?php echo $calendar->description?>
-                            <?php $begin = $calendar->begin;?>
-                        </li>
-                    <?php endforeach;?>
-                            </ul></div>
-                    <div class="clear">
-                        <a href="calendar"><?php echo $this->translate('View all');?></a>
-                    </div>
-                </div>
-            </div>
-        <?php endif; ?>
-        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all">
-            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-                <h3><?php echo $this->translate('Course');?></h3>
-            </div>
-            <div class="courses ui-dialog-content ui-widget-content">
-                <?php if (count($this->courses)):?>
-                    <?php foreach($this->courses as $course): ?>
-                        <div class="item">
-                            <img alt="<?php echo $course->name?>" src="upload/<?php echo $this->thumbnail($course->image, 'small')?>" width="40" height="40" />
-                            <a href="course/view/id/<?php echo $course->id?>"><?php echo $course->name?></a>
-                            <span><?php echo $this->translate($course->category)?></span>
-                            <p class="light"><?php echo substr($course->description, 0, strpos($course->description, '.'))?></p>
-                        </div>
-                    <?php endforeach;?>
-                    <?php echo $this->paginationControl($this->courses, null, null, $this->params); ?>
-                <?php else: ?>
-                    <p><?php echo $this->translate('there are no records')?></p>
-                <?php endif;?>
-            </div>
-        </div>
+        <?php echo $this->widget('main_index');?>
     </div>
 </div>
