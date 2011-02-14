@@ -52,6 +52,10 @@ class Calendar_Plugin extends Tri_Plugin_Abstract
     public function activate()
     {
         $this->_addDashboardMenuItem('calendar','calendar/index/index');
+
+        $this->_addWidget('main_index','calendar','index','widget');
+        $this->_addWidget('main_dashboard','calendar','index','dashboard');
+        
         $this->_addAclItem('calendar/index/index','identified');
         $this->_addAclItem('calendar/index/form','teacher, coordinator, institution');
         $this->_addAclItem('calendar/index/save','teacher, coordinator, institution');
@@ -61,6 +65,10 @@ class Calendar_Plugin extends Tri_Plugin_Abstract
     public function desactivate()
     {
         $this->_removeDashboardMenuItem('calendar');
+
+        $this->_removeWidget('main_index','calendar','index','widget');
+        $this->_removeWidget('main_dashboard','calendar','index','dashboard');
+
         $this->_removeAclItem('calendar/index/index');
         $this->_removeAclItem('calendar/index/form');
         $this->_removeAclItem('calendar/index/save');

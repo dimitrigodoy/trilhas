@@ -107,6 +107,25 @@ abstract class Tri_Plugin_Abstract implements Tri_Plugin_Interface
         Tri_Config::set('tri_dashboard_menu', $itens, true);
     }
 
+    protected function _addWidget($position, $module, $controller, $action, $order = 1)
+    {
+        $table = new Tri_Db_Table('widget');
+        $table->createRow(array('position' => $position,
+                                'module' => $module,
+                                'controller' => $controller,
+                                'action' => $action,
+                                'order' => $order))->save();
+    }
+
+    protected function _removeWidget($position, $module, $controller, $action)
+    {
+        $table = new Tri_Db_Table('widget');
+        $table->delete(array('position = ?' => $position,
+                             'module = ?' => $module,
+                             'controller = ?' => $controller,
+                             'action = ?' => $action));
+    }
+
     public function _install()
     {
         $this->install();
