@@ -29,7 +29,7 @@ class Admin_CourseController extends Tri_Controller_Action
     {
         parent::init();
         $this->_helper->layout->setLayout('admin');
-        $this->view->title = "Course";
+        $this->view->title = "Courses";
     }
 	
     public function indexAction()

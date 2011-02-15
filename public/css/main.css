@@ -61,6 +61,7 @@ object, embed {display: block; background: #eee; border: 2px solid black;}
 .courses .search{margin-bottom: 20px;}
 .courses .search a{margin-left: 20px;}
 .courses .item{clear: both; padding-bottom: 10px;}
+.courses .item h2{margin: 0;}
 .courses .item img{float: left; margin: 0 10px 5px 0;}
 .courses .item p{margin-top: 2px;}
 .courses .item span{margin-left: 5px; font-size: 0.8em; color: #ccc;}

@@ -28,7 +28,7 @@ class CourseController extends Tri_Controller_Action
     public function init()
     {
         parent::init();
-        $this->view->title = "Course";
+        $this->view->title = "Courses";
     }
 
     public function viewAction()
@@ -70,5 +70,14 @@ class CourseController extends Tri_Controller_Action
         $this->view->data      = $courses;
         $this->view->finalized = $finalized;
         $this->view->user      = $identity;
+    }
+
+    public function highlightAction()
+    {
+        $id = Tri_Config::get('tri_course_highlight');
+        $table = new Tri_Db_Table('course');
+        if ($id) {
+            $this->view->data = $table->fetchRow(array('id = ?' => $id));
+        }
     }
 }
