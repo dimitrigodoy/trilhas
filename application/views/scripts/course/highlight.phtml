@@ -1,0 +1,17 @@
+<?php if ($this->data):?>
+    <?php $course = $this->data?>
+    <div class="ui-dialog ui-widget ui-widget-content ui-corner-all">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+            <h3><?php echo $this->translate('Highlight');?></h3>
+        </div>
+        <div class="courses ui-dialog-content ui-widget-content">
+            <div class="item">
+                <img alt="<?php echo $course->name?>" src="upload/<?php echo $this->thumbnail($course->image, 'medium')?>" />
+                <h2><a href="course/view/id/<?php echo $course->id?>"><?php echo $course->name?></a></h2>
+                <span><?php echo $this->translate($course->category)?></span>
+                <p class="light"><?php echo substr($course->description, 0, strpos($course->description, '.'))?></p>
+                <p><a href="#"><?php echo $this->translate('register')?></p>
+            </div>
+        </div>
+    </div>
+<?php endif;?>
